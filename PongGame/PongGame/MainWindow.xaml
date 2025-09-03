@@ -22,7 +22,11 @@
             <Button x:Name="ResetBTN" Click="ResetBTN_Click" Foreground="Red" FontFamily="Segoe Fluent Icons" Content="&#xE777;"/>
         </StackPanel>
         <!--Play Area-->
-        <Canvas x:Name="GameCanvas" Width="1000" Height="500"  PointerMoved="GameCanvas_PointerMoved" Margin="10" Grid.Row="2" Background="Black"/>
+        <Canvas x:Name="GameCanvas" Width="1000" Height="500"  PointerMoved="GameCanvas_PointerMoved" Margin="10" Grid.Row="2">
+            <Canvas.Background>
+                <ImageBrush ImageSource="/Assets/texture.jpg"/>
+            </Canvas.Background>
+        </Canvas>
         <!--Display Score-->
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="25">
             <TextBlock x:Name="MeScore" Text="Me:  0" FontSize="18"/>

@@ -5,6 +5,8 @@ using Microsoft.UI.Xaml.Shapes;
 
 using System;
 
+using Windows.UI;
+
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
@@ -22,6 +24,7 @@ public sealed partial class MainWindow : Window
     private readonly double Paddle_Width  = 16;
     private readonly double Paddle_Height =100;
     private readonly double PaddleSpeed   = 6; // Machine speed
+    private readonly double  Radius = 10;
     private double LeftPaddleY;
     private double RightPaddleY;
     private double BallX;
@@ -32,6 +35,7 @@ public sealed partial class MainWindow : Window
     private double _MeScore      = 0;
     private double _MachineScore = 0;
     private readonly DispatcherTimer timer;
+    static SolidColorBrush Fill_Color(Color color) => new(color);
     #endregion
 
     private void MachineMove()
@@ -108,12 +112,13 @@ public sealed partial class MainWindow : Window
         GameCanvas.Children.Clear();
 
         // Draw paddles
-        var Fill_Color = new SolidColorBrush(Microsoft.UI.Colors.White);
         var PaddleMe = new Rectangle
         {
-            Fill = Fill_Color,
+            Fill = Fill_Color(Windows.UI.Color.FromArgb(255,0,255,0)),
             Width = Paddle_Width,
-            Height = Paddle_Height
+            Height = Paddle_Height,
+            RadiusX = Radius,
+            RadiusY = Radius
         };
         Canvas.SetLeft(PaddleMe, 0);
         Canvas.SetTop(PaddleMe, LeftPaddleY);
@@ -121,9 +126,11 @@ public sealed partial class MainWindow : Window
 
         var PaddleMachine = new Rectangle
         {
-            Fill = Fill_Color,
+            Fill = Fill_Color(Windows.UI.Color.FromArgb(255,255,0,0)),
             Width = Paddle_Width,
-            Height = Paddle_Height
+            Height = Paddle_Height,
+            RadiusX = Radius,
+            RadiusY = Radius
         };
         Canvas.SetLeft(PaddleMachine, GCWidth - Paddle_Width);
         Canvas.SetTop(PaddleMachine, RightPaddleY);
@@ -132,7 +139,9 @@ public sealed partial class MainWindow : Window
         // Draw ball
         var Ball = new Ellipse
         {
-            Stroke = Fill_Color,
+            Stroke = Fill_Color(Windows.UI.Color.FromArgb(255,255,255,255)),
+            StrokeThickness = 4,
+            Fill = Fill_Color(Windows.UI.Color.FromArgb(255,0,0,255)),
             Width = Ball_Size,
             Height = Ball_Size
         };
@@ -147,7 +156,7 @@ public sealed partial class MainWindow : Window
             Y1 = 0,
             X2 = GameCanvas.Width / 2,
             Y2 = GameCanvas.Height,
-            Stroke = Fill_Color,
+            Stroke = Fill_Color(Windows.UI.Color.FromArgb(155,255,255,255)),
             StrokeThickness = 2,
             StrokeDashArray = [8, 8]
         };
@@ -167,6 +176,7 @@ public sealed partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        SystemBackdrop = new MicaBackdrop();
         GCWidth = GameCanvas.Width;
         GCHeight = GameCanvas.Height;
         BallX = (GCWidth / 2) - (Ball_Size / 2);
@@ -224,3 +234,4 @@ public sealed partial class MainWindow : Window
         MachineScore.Text = $"{_MachineScore}  :Machine";
     }
 }
+
