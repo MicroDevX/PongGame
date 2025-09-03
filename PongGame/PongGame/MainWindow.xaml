@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="PongGame.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PongGame"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Simple Pong Game">
+
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+
+    <Grid RowDefinitions="auto,auto, *, auto" RowSpacing="10" Background="#222">
+        <!--Title-->
+        <TextBlock Text="Simple Pong Game" Grid.Row="0" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
+        <!--Controls-->
+        <StackPanel Orientation="Horizontal" Spacing="10" Margin="10" Grid.Row="1" HorizontalAlignment="Center">
+            <Button x:Name="PlayBTN" Click="PlayBTN_Click" Foreground="LawnGreen" FontFamily="Segoe Fluent Icons" Content="&#xE768;"/>
+            <Button x:Name="ResetBTN" Click="ResetBTN_Click" Foreground="Red" FontFamily="Segoe Fluent Icons" Content="&#xE777;"/>
+        </StackPanel>
+        <!--Play Area-->
+        <Canvas x:Name="GameCanvas" Width="1000" Height="500"  PointerMoved="GameCanvas_PointerMoved" Margin="10" Grid.Row="2" Background="Black"/>
+        <!--Display Score-->
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="25">
+            <TextBlock x:Name="MeScore" Text="Me:  0" FontSize="18"/>
+            <TextBlock Text="|" FontSize="18"/>
+            <TextBlock x:Name="MachineScore" Text="0  :Machine" FontSize="18"/>
+        </StackPanel>
+    </Grid>
+</Window>
